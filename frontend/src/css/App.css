@@ -1,0 +1,307 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: "Nanum Pen Script", cursive;
+}
+
+.App {
+    text-align: center;
+    background-color: #212121;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: calc(10px + 2vmin);
+    color: white;
+}
+
+.feedback {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 2rem;
+    opacity: 1;
+    animation: fadeOut 3s forwards;
+    border-radius: 5px;
+    border: none;
+    color: white;
+    text-align: center;
+    padding: 0.2em 0.5em;
+    transition: all 0.4s;
+    cursor: pointer;
+}
+
+.feedback.correct {
+    background: #0ba360;
+    background: linear-gradient(to right, #0ba360, #3cba92);
+    box-shadow: 0px 14px 56px -11px #0ba360;
+}
+
+.feedback.incorrect {
+    background: #f54748; /* tomato red */
+    background: linear-gradient(
+        to right,
+        #f54748,
+        #fa7e71
+    ); /* gradient from tomato red to a lighter shade */
+    box-shadow: 0px 14px 56px -11px #f54748; /* shadow using the tomato red color */
+}
+
+@keyframes fadeOut {
+    to {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(1.2);
+    }
+}
+
+.game-container {
+    position: relative;
+    border-radius: 15px;
+    padding: 1em;
+    background-color: #191919;
+    box-shadow: 5px 5px 30px rgb(4, 4, 4), -5px -5px 30px rgb(57, 57, 57);
+}
+
+.option-button {
+    --main-focus: #2d8cf0;
+    --font-color: #dedede;
+    --bg-color-sub: #222;
+    --bg-color: #323232;
+    --main-color: #dedede;
+    position: relative;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    border: 2px solid var(--main-color);
+    box-shadow: 4px 4px var(--main-color);
+    background-color: var(--bg-color);
+    border-radius: 10px;
+    overflow: hidden;
+    width: 500px;
+    padding: 0.25em;
+    color: #ffffff;
+    margin: 1em 0 0 0;
+}
+
+.option-button,
+.restart-icon,
+.option-button .option-text,
+.restart-button,
+.restart-button .restart-text {
+    transition: all 0.3s;
+}
+
+.option-button .option-text {
+    transform: translateX(21px);
+    color: var(--font-color);
+    font-weight: 600;
+}
+
+.option-button:active {
+    transform: translate(3px, 3px);
+    box-shadow: 0px 0px var(--main-color);
+}
+
+.game-menu-buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.restart-button {
+    --main-focus: #2d8cf0;
+    --font-color: #dedede;
+    --bg-color-sub: #222;
+    --bg-color: #323232;
+    --main-color: #dedede;
+    position: relative;
+    width: 150px;
+    height: 40px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    border: 2px solid var(--main-color);
+    box-shadow: 4px 4px var(--main-color);
+    background-color: var(--bg-color);
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 1em;
+    font-size: 0.8em;
+}
+
+.restart-button .restart-text {
+    transform: translateX(15px);
+    color: var(--font-color);
+    font-weight: 600;
+}
+
+.restart-button .restart-icon {
+    color: #ffffff;
+    position: absolute;
+    transform: translateX(109px);
+    height: 100%;
+    width: 39px;
+    background-color: var(--bg-color-sub);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.restart-button:hover {
+    background: var(--bg-color);
+}
+
+.restart-button:hover .restart-text {
+    color: transparent;
+}
+
+.restart-button:hover .restart-icon {
+    width: 148px;
+    transform: translateX(0);
+}
+
+.restart-button:active {
+    transform: translate(3px, 3px);
+    box-shadow: 0px 0px var(--main-color);
+}
+
+.timer-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.5em 0;
+}
+
+.game-status,
+.result-container {
+    display: block;
+    margin: auto;
+    font-size: 18px;
+    padding: 0.8em 3em;
+    letter-spacing: 0.08em;
+    position: relative;
+    border-radius: 0.6em;
+    overflow: hidden;
+    transition: all 0.3s;
+    line-height: 1.4em;
+    border: 2px solid #9b7eda;
+    background: linear-gradient(
+        to right,
+        rgba(155, 126, 218, 0.1) 1%,
+        transparent 40%,
+        transparent 60%,
+        rgba(155, 126, 218, 0.1) 100%
+    );
+    color: #9b7eda;
+    font-size: 0.8em;
+    box-shadow: inset 0 0 10px rgba(155, 126, 218, 0.4),
+        0 0 9px 3px rgba(155, 126, 218, 0.1);
+}
+
+.game-data .game-question {
+    margin: 1em 0;
+    font-weight: bolder;
+}
+
+.result-container {
+    width: 50%;
+    display: block;
+    margin: auto;
+    border: 2px solid #ccff00;
+    background: linear-gradient(
+        to right,
+        rgba(204, 255, 0, 0.1) 1%,
+        transparent 40%,
+        transparent 60%,
+        rgba(204, 255, 0, 0.1) 100%
+    );
+    color: #ccff00;
+    box-shadow: inset 0 0 10px rgba(204, 255, 0, 0.4),
+        0 0 9px 3px rgba(204, 255, 0, 0.1);
+}
+
+.versus-container {
+    text-align: center;
+    margin: 1em 0;
+    font-size: 24px;
+    color: #ffffff;
+}
+
+.player-name {
+    padding: 5px 10px;
+    border-radius: 5px;
+    transition: transform 0.5s;
+}
+
+.eins-time {
+    background: linear-gradient(to right, #00dffc, #3cba92);
+    box-shadow: 0 0 10px #00dffc;
+}
+
+.gauss-guru {
+    background: linear-gradient(to right, #f54748, #fa7e71);
+    box-shadow: 0 0 10px #f54748;
+}
+
+.vs-text {
+    margin: 0 1em;
+    color: #ccc;
+    font-weight: bold;
+}
+
+.versus-container:hover .player-name {
+    transform: scale(1.1);
+}
+
+@keyframes shimmer {
+    0%,
+    100% {
+        background-position: 0 0;
+    }
+    50% {
+        background-position: 100% 0;
+    }
+}
+
+.game-title {
+    background: linear-gradient(90deg, #212121, #ffffff, #212121);
+    background-size: 200% 100%;
+    color: transparent;
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: shimmer 3s infinite;
+}
+
+.game-rules {
+    background: rgb(32, 32, 32, 0.5);
+}
+
+.game-rules .modal-content {
+    background-color: #212121;
+    color: #ffffff !important;
+    box-shadow: 0 0 5px #08f, 0 0 10px #08f;
+    font-size: 1.5em;
+}
+
+.game-rules .modal-header {
+    border-bottom: none;
+    padding: 0.5em;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.game-rules .modal-header .modal-title {
+    width: 100%;
+    text-align: center;
+    font-size: 2em;
+    font-weight: bold;
+}
+
+.game-rules .modal-header .btn-close {
+    color: #ffffff;
+}
