@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 
 // Import the custom CSS file
@@ -50,6 +50,13 @@ function App() {
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
+    const handlePlayerSwitch = useCallback(() => {
+        setCurrentPlayer((currentPlayer) =>
+            currentPlayer === "player1" ? "player2" : "player1"
+        );
+        setTimeLeft(30); // Reset the timer for the next player
+    }, [setCurrentPlayer, setTimeLeft]);
+
     // Fetch the question when the game starts
     useEffect(() => {
         fetchQuestion();
@@ -69,7 +76,7 @@ function App() {
         } else if (timeLeft === 0) {
             handlePlayerSwitch();
         }
-    }, [timeLeft, gameStatus]);
+    }, [timeLeft, gameStatus, handlePlayerSwitch]);
 
     // Start the game
     const startGame = () => {
@@ -84,12 +91,6 @@ function App() {
         setGameStatus("ongoing");
         setFeedback("");
         fetchQuestion(); // Fetch a new question to start the game
-    };
-
-    // Player switch logic
-    const handlePlayerSwitch = () => {
-        setCurrentPlayer(currentPlayer === "player1" ? "player2" : "player1");
-        setTimeLeft(30); // Reset the timer for the next player
     };
 
     // Fetch the question from the server
